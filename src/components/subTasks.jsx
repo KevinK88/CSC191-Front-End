@@ -71,7 +71,7 @@ class SubTasks extends Component {
     return (
       <React.Fragment>
         <h3>{this.state.taskName}</h3>
-        <h5>{this.state.taskDescription}</h5>
+        <h5 style={{ color: "#c9c9c9" }}>{this.state.taskDescription}</h5>
         <h6>Due: {this.state.dueDate}</h6>
 
         <Link
@@ -87,11 +87,10 @@ class SubTasks extends Component {
         >
           New Task
         </Link>
-<<<<<<< HEAD
-        <table className="table">
-=======
-        <table className="table" style={{ textDecoration: "none" }}>
->>>>>>> c158f7a2298e56cda5144510bda855514c1fe72a
+        <table
+          className="table"
+          style={{ color: "white", textDecoration: "none" }}
+        >
           <tbody>
             {this.state.subTasks.map((task) => (
               <tr key={task.taskId}>

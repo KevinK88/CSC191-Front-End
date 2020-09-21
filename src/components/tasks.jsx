@@ -49,11 +49,10 @@ class Tasks extends Component {
         >
           New Task
         </Link>
-<<<<<<< HEAD
-        <table className="table">
-=======
-        <table className="table" style={{ textDecoration: "none" }}>
->>>>>>> c158f7a2298e56cda5144510bda855514c1fe72a
+        <table
+          className="table"
+          style={{ color: "white", textDecoration: "none" }}
+        >
           <tbody>
             {this.state.tasks.map((task) => (
               <tr key={task.taskId}>
