@@ -104,6 +104,15 @@ class SubTasks extends Component {
                 <td>{task.taskDescription}</td>
                 <td>SubTasks: {task.subTaskCount}</td>
                 <td>Due Date: {task.dueDate.seconds}</td>
+
+                <td className="d-flex justify-content-end">
+                  <button
+                    onClick={() => this.handleDelete(task)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
