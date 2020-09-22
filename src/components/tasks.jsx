@@ -66,7 +66,10 @@ class Tasks extends Component {
                 <td>{task.taskDescription}</td>
                 <td>SubTasks: {task.subTaskCount}</td>
                 <td>Due Date: {task.dueDate.seconds}</td>
-
+                {!task.completed && (
+                  <td style={{ color: "red" }}>Incomplete</td>
+                )}
+                {task.completed && <td style={{ color: "green" }}>Complete</td>}
                 <td className="d-flex justify-content-end">
                   <button
                     onClick={() => this.handleDelete(task)}
