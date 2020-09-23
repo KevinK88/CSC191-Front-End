@@ -2,20 +2,12 @@ html body {
   margin: 0;
   padding: 0 0 0 0;
   font-family: sans-serif;
+  background-color: black;
   color: white;
 }
 
 .navbar {
   margin-bottom: 30px;
-}
-
-.table {
-  color: white;
-}
-
-.form-control {
-  background: "#6e6e6e";
-  border: "none";
 }
 
 .clickable {
