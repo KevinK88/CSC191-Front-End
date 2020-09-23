@@ -71,6 +71,23 @@ class Tasks extends Component {
                 )}
                 {task.completed && <td style={{ color: "green" }}>Complete</td>}
                 <td className="d-flex justify-content-end">
+                  <Link
+                    to={{
+                      pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
+                      state: {
+                        parentTaskId: task.parentTaskId,
+                        taskId: task.taskId,
+                        taskName: task.taskName,
+                        taskDescription: task.taskDescription,
+                        priority: task.priority,
+                        completed: task.completed,
+                        type: "edit main",
+                      },
+                    }}
+                    className="btn btn-primary btn-sm mr-2"
+                  >
+                    Edit
+                  </Link>
                   <button
                     onClick={() => this.handleDelete(task)}
                     className="btn btn-danger btn-sm"
