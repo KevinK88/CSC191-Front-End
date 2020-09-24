@@ -93,14 +93,36 @@ class SubTasks extends Component {
     }
   };
 
+  getDaysLeft = (dueDateString) => {
+    var dueDate = new Date(dueDateString);
+    var today = new Date(Date.now());
+    // console.log(dueDate, today);
+    return Math.floor(
+      (dueDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h4>{this.state.taskName}</h4>
-        <h6 style={{ color: "#c9c9c9" }}>{this.state.taskDescription}</h6>
-        <h6>Due: {this.state.dueDate.toString()}</h6>
-        {!this.state.completed && <h6 style={{ color: "red" }}>Incomplete</h6>}
-        {this.state.completed && <h6 style={{ color: "green" }}>Complete</h6>}
+        <h2 style={{ marginBottom: 2, fontWeight: 400 }}>
+          {this.state.taskName}
+        </h2>
+        <p style={{ color: "#c9c9c9", marginBottom: 5 }}>
+          {this.state.taskDescription}
+        </p>
+        {!this.state.completed && (
+          <p style={{ color: "#e57373", marginBottom: 0 }}>Incomplete</p>
+        )}
+        {this.state.completed && (
+          <p style={{ color: "green", marginBottom: 0 }}>Complete</p>
+        )}
+        <p style={{ marginBottom: 5 }}>
+          {this.getDaysLeft(this.state.dueDate)} days until{" "}
+          <span style={{ fontWeight: "bold", marginBottom: 5 }}>
+            {this.state.dueDate.toString()}
+          </span>
+        </p>
         <Link
           to={{
             pathname: `/project/${this.state.projectId}/task/${this.state.taskId}/edit`,
@@ -155,9 +177,10 @@ class SubTasks extends Component {
                 </td>
                 <td>{task.taskDescription}</td>
                 {/*<td>SubTasks: {task.subTaskCount}</td>*/}
-                <td>Due: {task.dueDate.toString()}</td>
+                <td>{task.subTaskCount} Tasks</td>
+                <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
                 {!task.completed && (
-                  <td style={{ color: "red" }}>Incomplete</td>
+                  <td style={{ color: "#e57373" }}>Incomplete</td>
                 )}
                 {task.completed && <td style={{ color: "green" }}>Complete</td>}
                 <td className="d-flex justify-content-end">
@@ -186,7 +209,6 @@ class SubTasks extends Component {
                     Delete
                   </button>
                 </td>
-                <td>Tasks: {task.subTaskCount}</td>
               </tr>
             ))}
           </tbody>

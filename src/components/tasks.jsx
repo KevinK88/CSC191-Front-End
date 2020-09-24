@@ -35,10 +35,21 @@ class Tasks extends Component {
     }
   };
 
+  getDaysLeft = (dueDateString) => {
+    var dueDate = new Date(dueDateString);
+    var today = new Date(Date.now());
+    // console.log(dueDate, today);
+    return Math.floor(
+      (dueDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h3>{this.state.projectName}</h3>
+        <h2 style={{ marginBottom: 5, fontWeight: 400 }}>
+          {this.state.projectName}
+        </h2>
         <Link
           to={{
             pathname: `/project/${this.state.projectId}/task`,
@@ -65,10 +76,10 @@ class Tasks extends Component {
                   </Link>
                 </td>
                 <td>{task.taskDescription}</td>
-                {/*<td>SubTasks: {task.subTaskCount}</td>*/}
-                <td>Due: {task.dueDate.toString()}</td>
+                <td>{task.subTaskCount} Tasks</td>
+                <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
                 {!task.completed && (
-                  <td style={{ color: "red" }}>Incomplete</td>
+                  <td style={{ color: "#e57373" }}>Incomplete</td>
                 )}
                 {task.completed && <td style={{ color: "green" }}>Complete</td>}
                 <td className="d-flex justify-content-end">
@@ -97,7 +108,6 @@ class Tasks extends Component {
                     Delete
                   </button>
                 </td>
-                <td>Tasks: {task.subTaskCount}</td>
               </tr>
             ))}
           </tbody>
