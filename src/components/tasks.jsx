@@ -45,7 +45,7 @@ class Tasks extends Component {
             state: { parentTaskId: "0", type: "new main" },
           }}
           className="btn btn-primary mt-2"
-          style={{ marginBottom: 20 }}
+          style={{ marginBottom: 15 }}
         >
           New Task
         </Link>
@@ -56,6 +56,7 @@ class Tasks extends Component {
           <tbody>
             {this.state.tasks.map((task) => (
               <tr key={task.taskId}>
+                <td>{task.priority}</td>
                 <td>
                   <Link
                     to={`/project/${this.state.projectId}/task/${task.taskId}`}
@@ -64,8 +65,8 @@ class Tasks extends Component {
                   </Link>
                 </td>
                 <td>{task.taskDescription}</td>
-                <td>SubTasks: {task.subTaskCount}</td>
-                <td>Due Date: {task.dueDate.seconds}</td>
+                {/*<td>SubTasks: {task.subTaskCount}</td>*/}
+                <td>Due: {task.dueDate.toString()}</td>
                 {!task.completed && (
                   <td style={{ color: "red" }}>Incomplete</td>
                 )}
@@ -81,6 +82,7 @@ class Tasks extends Component {
                         taskDescription: task.taskDescription,
                         priority: task.priority,
                         completed: task.completed,
+                        dueDate: task.dueDate,
                         type: "edit main",
                       },
                     }}
@@ -95,6 +97,7 @@ class Tasks extends Component {
                     Delete
                   </button>
                 </td>
+                <td>Tasks: {task.subTaskCount}</td>
               </tr>
             ))}
           </tbody>

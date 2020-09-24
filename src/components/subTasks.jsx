@@ -8,7 +8,10 @@ class SubTasks extends Component {
     taskName: "",
     taskId: "",
     taskDescription: "",
-    dueDate: "",
+    completed: "",
+    priority: "",
+    parentTaskId: "",
+    dueDate: {},
     subTasks: [],
   };
 
@@ -23,8 +26,11 @@ class SubTasks extends Component {
           taskName: res.data.taskName,
           taskId: res.data.taskId,
           taskDescription: res.data.taskDescription,
-          dueDate: res.data.dueDate.seconds,
+          dueDate: res.data.dueDate,
           subTasks: res.data.subTasks,
+          priority: res.data.priority,
+          completed: res.data.completed,
+          parentTaskId: res.data.parentTaskId,
         });
       })
       .catch((err) => {
@@ -45,8 +51,11 @@ class SubTasks extends Component {
             taskName: res.data.taskName,
             taskId: res.data.taskId,
             taskDescription: res.data.taskDescription,
-            dueDate: res.data.dueDate.seconds,
+            dueDate: res.data.dueDate,
             subTasks: res.data.subTasks,
+            priority: res.data.priority,
+            parentTaskId: res.data.parentTaskId,
+            completed: res.data.completed,
           });
         })
         .catch((err) => {
@@ -67,13 +76,55 @@ class SubTasks extends Component {
     }
   };
 
+  handleDeleteMain = () => {
+    const parentTaskId = this.state.parentTaskId;
+    if (window.confirm("Are you sure you want to delete this Task?")) {
+      axios
+        .delete(`/project/${this.state.projectId}/task/${this.state.taskId}`)
+        .then((res) => {})
+        .catch((err) => console.log(err));
+      if (parentTaskId === "0") {
+        this.props.history.push(`/project/${this.state.projectId}`);
+      } else {
+        this.props.history.push(
+          `/project/${this.state.projectId}/task/${parentTaskId}`
+        );
+      }
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h3>{this.state.taskName}</h3>
-        <h5 style={{ color: "#c9c9c9" }}>{this.state.taskDescription}</h5>
-        <h6>Due: {this.state.dueDate}</h6>
-
+        <h4>{this.state.taskName}</h4>
+        <h6 style={{ color: "#c9c9c9" }}>{this.state.taskDescription}</h6>
+        <h6>Due: {this.state.dueDate.toString()}</h6>
+        {!this.state.completed && <h6 style={{ color: "red" }}>Incomplete</h6>}
+        {this.state.completed && <h6 style={{ color: "green" }}>Complete</h6>}
+        <Link
+          to={{
+            pathname: `/project/${this.state.projectId}/task/${this.state.taskId}/edit`,
+            state: {
+              parentTaskId: this.state.parentTaskId,
+              taskId: this.state.taskId,
+              taskName: this.state.taskName,
+              taskDescription: this.state.taskDescription,
+              priority: this.state.priority,
+              completed: this.state.completed,
+              dueDate: this.state.dueDate,
+              type: "edit subpage",
+            },
+          }}
+          className="btn btn-primary btn-sm mr-2"
+        >
+          Edit
+        </Link>
+        <button
+          onClick={() => this.handleDeleteMain()}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
         <Link
           to={{
             pathname: `/project/${this.props.match.params.projectId}/task/${this.state.taskId}/subtask`,
@@ -83,9 +134,9 @@ class SubTasks extends Component {
             },
           }}
           className="btn btn-primary mt-2"
-          style={{ marginBottom: 20 }}
+          style={{ marginLeft: 15, marginBottom: 10 }}
         >
-          New Task
+          New Subtask
         </Link>
         <table
           className="table"
@@ -94,6 +145,7 @@ class SubTasks extends Component {
           <tbody>
             {this.state.subTasks.map((task) => (
               <tr key={task.taskId}>
+                <td>{task.priority}</td>
                 <td>
                   <Link
                     to={`/project/${this.state.projectId}/task/${task.taskId}`}
@@ -102,8 +154,8 @@ class SubTasks extends Component {
                   </Link>
                 </td>
                 <td>{task.taskDescription}</td>
-                <td>SubTasks: {task.subTaskCount}</td>
-                <td>Due Date: {task.dueDate.seconds}</td>
+                {/*<td>SubTasks: {task.subTaskCount}</td>*/}
+                <td>Due: {task.dueDate.toString()}</td>
                 {!task.completed && (
                   <td style={{ color: "red" }}>Incomplete</td>
                 )}
@@ -118,6 +170,7 @@ class SubTasks extends Component {
                         taskName: task.taskName,
                         taskDescription: task.taskDescription,
                         priority: task.priority,
+                        dueDate: task.dueDate,
                         completed: task.completed,
                         type: "edit sub",
                       }, //
@@ -133,6 +186,7 @@ class SubTasks extends Component {
                     Delete
                   </button>
                 </td>
+                <td>Tasks: {task.subTaskCount}</td>
               </tr>
             ))}
           </tbody>

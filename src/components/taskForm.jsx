@@ -26,8 +26,8 @@ class TaskForm extends Component {
         priority: parseInt(this.props.location.state.priority, 10),
         parentTaskId: this.props.location.state.parentTaskId,
         taskId: this.props.location.state.taskId,
-        completed: this.props.location.state.completed.toString(),
-        dueDate: { seconds: 159839020, nanoseconds: 38500000 },
+        completed: this.props.location.state.completed,
+        dueDate: this.props.location.state.dueDate,
         type: this.props.location.state.type,
       };
     } else {
@@ -36,20 +36,25 @@ class TaskForm extends Component {
       this.state = {
         projectId: this.props.match.params.projectId,
         parentTaskId: this.props.location.state.parentTaskId,
-        completed: "false",
+        completed: false,
         taskName: "",
         taskDescription: "",
         priority: 0,
+        dueDate: {},
         type: this.props.location.state.type,
       };
     }
+    console.log(this.state);
   }
 
   componentDidMount() {
     // console.log(this.state);
     if (this.state.type === "edit main") {
       this.setState({ completed: this.state.completed });
-    } else if (this.state.type === "edit sub") {
+    } else if (
+      this.state.type === "edit sub" ||
+      this.state.type === "edit subpage"
+    ) {
       this.setState({ completed: this.state.completed });
     } else if (this.state.type === "new sub") {
       // console.log("new sub", this.state);
@@ -65,76 +70,7 @@ class TaskForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.type === "new main") {
-      axios
-        .post(`/project/${this.state.projectId}/task`, {
-          projectId: this.state.projectId,
-          taskName: this.state.taskName,
-          taskDescription: this.state.taskDescription,
-          priority: parseInt(this.state.priority, 10),
-          parentTaskId: this.state.parentTaskId,
-        })
-        .then((res) =>
-          this.props.history.push(
-            `/project/${this.props.match.params.projectId}`
-          )
-        )
-        .catch((err) => console.log(err));
-    } else if (this.state.type === "edit main") {
-      axios
-        .post(
-          `/project/${this.state.projectId}/task/${this.state.taskId}/edit`,
-          {
-            taskName: this.state.taskName,
-            taskDescription: this.state.taskDescription,
-            priority: parseInt(this.state.priority, 10),
-            completed: "true" === this.state.completed,
-            dueDate: this.state.dueDate,
-          }
-        )
-        .then((res) =>
-          this.props.history.push(
-            `/project/${this.props.match.params.projectId}`
-          )
-        )
-        .catch((err) => console.log(err));
-    } else if (this.state.type === "new sub") {
-      axios
-        .post(
-          `/project/${this.state.projectId}/task/${this.state.parentTaskId}/subtask`,
-          {
-            projectId: this.state.projectId,
-            taskName: this.state.taskName,
-            taskDescription: this.state.taskDescription,
-            priority: parseInt(this.state.priority, 10),
-            parentTaskId: this.state.parentTaskId,
-          }
-        )
-        .then((res) =>
-          this.props.history.push(
-            `/project/${this.props.match.params.projectId}/task/${this.state.parentTaskId}`
-          )
-        )
-        .catch((err) => console.log(err));
-    } else if (this.state.type === "edit sub") {
-      axios
-        .post(
-          `/project/${this.state.projectId}/task/${this.state.taskId}/edit`,
-          {
-            taskName: this.state.taskName,
-            taskDescription: this.state.taskDescription,
-            priority: parseInt(this.state.priority, 10),
-            completed: "true" === this.state.completed,
-            dueDate: this.state.dueDate,
-          }
-        )
-        .then((res) =>
-          this.props.history.push(
-            `/project/${this.props.match.params.projectId}/task/${this.state.parentTaskId}`
-          )
-        )
-        .catch((err) => console.log(err));
-    }
+    handleUpdateAndRedirect(this.state, this.props);
   };
 
   render() {
@@ -170,6 +106,15 @@ class TaskForm extends Component {
               value={this.state.priority}
               onChange={this.handleChange}
             />
+            <label htmlFor="dueDate">Due Date</label>
+            <input
+              id="dueDate"
+              name="dueDate"
+              type="date"
+              className="form-control"
+              value={this.state.dueDate}
+              onChange={this.handleChange}
+            />
             <label htmlFor="completed">Status</label>
             <select
               id="completed"
@@ -190,5 +135,84 @@ class TaskForm extends Component {
     );
   }
 }
+
+const handleUpdateAndRedirect = (state, props) => {
+  if (state.type === "new main") {
+    axios
+      .post(`/project/${state.projectId}/task`, {
+        projectId: state.projectId,
+        taskName: state.taskName,
+        taskDescription: state.taskDescription,
+        priority: parseInt(state.priority, 10),
+        parentTaskId: state.parentTaskId,
+        dueDate: state.dueDate,
+        completed: state.completed,
+      })
+      .then((res) =>
+        props.history.push(`/project/${props.match.params.projectId}`)
+      )
+      .catch((err) => console.log(err));
+  } else if (state.type === "edit main") {
+    axios
+      .post(`/project/${state.projectId}/task/${state.taskId}/edit`, {
+        taskName: state.taskName,
+        taskDescription: state.taskDescription,
+        priority: parseInt(state.priority, 10),
+        completed: "true" === state.completed,
+        dueDate: state.dueDate,
+      })
+      .then((res) =>
+        props.history.push(`/project/${props.match.params.projectId}`)
+      )
+      .catch((err) => console.log(err));
+  } else if (state.type === "new sub") {
+    axios
+      .post(`/project/${state.projectId}/task/${state.parentTaskId}/subtask`, {
+        projectId: state.projectId,
+        taskName: state.taskName,
+        taskDescription: state.taskDescription,
+        priority: parseInt(state.priority, 10),
+        dueDate: state.dueDate,
+        completed: state.completed,
+        parentTaskId: state.parentTaskId,
+      })
+      .then((res) =>
+        props.history.push(
+          `/project/${props.match.params.projectId}/task/${state.parentTaskId}`
+        )
+      )
+      .catch((err) => console.log(err));
+  } else if (state.type === "edit sub") {
+    axios
+      .post(`/project/${state.projectId}/task/${state.taskId}/edit`, {
+        taskName: state.taskName,
+        taskDescription: state.taskDescription,
+        priority: parseInt(state.priority, 10),
+        completed: "true" === state.completed,
+        dueDate: state.dueDate,
+      })
+      .then((res) =>
+        props.history.push(
+          `/project/${props.match.params.projectId}/task/${state.parentTaskId}`
+        )
+      )
+      .catch((err) => console.log(err));
+  } else if (state.type === "edit subpage") {
+    axios
+      .post(`/project/${state.projectId}/task/${state.taskId}/edit`, {
+        taskName: state.taskName,
+        taskDescription: state.taskDescription,
+        priority: parseInt(state.priority, 10),
+        completed: "true" === state.completed,
+        dueDate: state.dueDate,
+      })
+      .then((res) =>
+        props.history.push(
+          `/project/${props.match.params.projectId}/task/${state.taskId}`
+        )
+      )
+      .catch((err) => console.log(err));
+  }
+};
 
 export default TaskForm;
