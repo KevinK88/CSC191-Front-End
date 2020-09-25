@@ -12,9 +12,7 @@ class SubTasks extends Component {
     priority: "",
     parentTaskId: "",
     dueDate: {},
-    tasks: [],
     subTasks: [],
-    expanded: false,
   };
 
   async componentDidMount() {
@@ -29,7 +27,7 @@ class SubTasks extends Component {
           taskId: res.data.taskId,
           taskDescription: res.data.taskDescription,
           dueDate: res.data.dueDate,
-          tasks: res.data.subTasks,
+          subTasks: res.data.subTasks,
           priority: res.data.priority,
           completed: res.data.completed,
           parentTaskId: res.data.parentTaskId,
@@ -54,7 +52,7 @@ class SubTasks extends Component {
             taskId: res.data.taskId,
             taskDescription: res.data.taskDescription,
             dueDate: res.data.dueDate,
-            tasks: res.data.subTasks,
+            subTasks: res.data.subTasks,
             priority: res.data.priority,
             parentTaskId: res.data.parentTaskId,
             completed: res.data.completed,
@@ -73,8 +71,8 @@ class SubTasks extends Component {
         .delete(`/project/${this.state.projectId}/task/${task.taskId}`)
         .then((res) => {})
         .catch((err) => console.log(err));
-      const tasks = this.state.tasks.filter((t) => t.taskId !== task.taskId);
-      this.setState({ tasks });
+      const tasks = this.state.subTasks.filter((t) => t.taskId !== task.taskId);
+      this.setState({ subTasks: tasks });
     }
   };
 
@@ -101,74 +99,6 @@ class SubTasks extends Component {
     // console.log(dueDate, today);
     return Math.floor(
       (dueDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
-    );
-  };
-
-  getSubtasks = (task) => {
-    if (this.state.expanded === false) {
-      axios
-        .get(`/project/${this.state.projectId}/task/${task.taskId}`)
-        .then((res) => {
-          this.setState({ subTasks: res.data.subTasks, expanded: true });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (this.state.expanded === true) {
-      this.setState({ expanded: false });
-    }
-    console.log(this.state.tasks, this.state.expanded);
-  };
-
-  renderRow = (task) => {
-    return (
-      <tr key={task.taskId}>
-        <td>{task.priority}</td>
-        <td>
-          <Link to={`/project/${this.state.projectId}/task/${task.taskId}`}>
-            {task.taskName}
-          </Link>
-        </td>
-        <td>{task.taskDescription}</td>
-
-        <td>{task.subTaskCount} Tasks</td>
-        <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
-        {!task.completed && <td style={{ color: "#e57373" }}>Incomplete</td>}
-        {task.completed && <td style={{ color: "green" }}>Complete</td>}
-        <td className="d-flex justify-content-end">
-          <Link
-            to={{
-              pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
-              state: {
-                parentTaskId: task.parentTaskId,
-                taskId: task.taskId,
-                taskName: task.taskName,
-                taskDescription: task.taskDescription,
-                priority: task.priority,
-                dueDate: task.dueDate,
-                completed: task.completed,
-                type: "edit sub",
-              }, //
-            }}
-            className="btn btn-primary btn-sm mr-2"
-          >
-            Edit
-          </Link>
-          <button
-            onClick={() => this.handleDelete(task)}
-            className="btn btn-danger btn-sm"
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => this.getSubtasks(task)}
-            className="btn btn-secondary btn-sm"
-            style={{ marginLeft: 7 }}
-          >
-            Expand
-          </button>
-        </td>
-      </tr>
     );
   };
 
@@ -234,18 +164,55 @@ class SubTasks extends Component {
           className="table"
           style={{ color: "white", textDecoration: "none" }}
         >
-          <tbody>{this.state.tasks.map((task) => this.renderRow(task))}</tbody>
+          <tbody>
+            {this.state.subTasks.map((task) => (
+              <tr key={task.taskId}>
+                <td>{task.priority}</td>
+                <td>
+                  <Link
+                    to={`/project/${this.state.projectId}/task/${task.taskId}`}
+                  >
+                    {task.taskName}
+                  </Link>
+                </td>
+                <td>{task.taskDescription}</td>
+                {/*<td>SubTasks: {task.subTaskCount}</td>*/}
+                <td>{task.subTaskCount} Tasks</td>
+                <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
+                {!task.completed && (
+                  <td style={{ color: "#e57373" }}>Incomplete</td>
+                )}
+                {task.completed && <td style={{ color: "green" }}>Complete</td>}
+                <td className="d-flex justify-content-end">
+                  <Link
+                    to={{
+                      pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
+                      state: {
+                        parentTaskId: task.parentTaskId,
+                        taskId: task.taskId,
+                        taskName: task.taskName,
+                        taskDescription: task.taskDescription,
+                        priority: task.priority,
+                        dueDate: task.dueDate,
+                        completed: task.completed,
+                        type: "edit sub",
+                      }, //
+                    }}
+                    className="btn btn-primary btn-sm mr-2"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => this.handleDelete(task)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-        {this.state.expanded && (
-          <table
-            className="table"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            <tbody>
-              {this.state.subTasks.map((subTask) => this.renderRow(subTask))}
-            </tbody>
-          </table>
-        )}
       </React.Fragment>
     );
   }
