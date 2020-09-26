@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticated } from "../App";
+import logo from './icon.png';
 
 class NavBar extends Component {
   logoutUser = () => {
@@ -14,6 +15,9 @@ class NavBar extends Component {
     if (isAuthenticated()) {
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div>
+              <img src={logo} alt="Intangibles Icon" className = "icon"/>
+          </div>
           <Link className="navbar-brand" to="/">
             Intangible Manager
           </Link>
