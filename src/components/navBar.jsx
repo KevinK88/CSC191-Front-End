@@ -40,6 +40,9 @@ class NavBar extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div>
+            <img src={logo} alt="Intangibles Icon" className="icon" />
+        </div>
         <Link className="navbar-brand" to="/">
           Intangible Manager
         </Link>
