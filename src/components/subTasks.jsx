@@ -225,7 +225,7 @@ class SubTasks extends Component {
               type: "new sub",
             },
           }}
-          className="btn btn-primary mt-2"
+          className="btn btn-primary mt-2 border-secondary"
           style={{ marginLeft: 15, marginBottom: 10 }}
         >
           New Subtask
