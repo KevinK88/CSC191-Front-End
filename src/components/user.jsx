@@ -38,7 +38,7 @@ class User extends Component {
             pathname: "/project/new",
             state: { email: this.state.credentials.email },
           }}
-          className="btn btn-primary"
+          className="btn btn-primary border-danger"
           style={{ marginBottom: 20 }}
         >
           New Project
