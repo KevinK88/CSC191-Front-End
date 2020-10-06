@@ -125,7 +125,10 @@ class SubTasks extends Component {
       <tr key={task.taskId}>
         <td>{task.priority}</td>
         <td>
-          <Link to={`/project/${this.state.projectId}/task/${task.taskId}`}>
+          <Link
+            to={`/project/${this.state.projectId}/task/${task.taskId}`}
+            style={{ fontFamily: "Montserrat" }}
+          >
             {task.taskName}
           </Link>
         </td>
@@ -187,7 +190,7 @@ class SubTasks extends Component {
         {this.state.completed && (
           <p style={{ color: "green", marginBottom: 0 }}>Complete</p>
         )}
-        <p style={{ marginBottom: 5 }}>
+        <p style={{ marginBottom: 5, fontFamily: "Montserrat" }}>
           {this.getDaysLeft(this.state.dueDate)} days until{" "}
           <span style={{ fontWeight: "bold", marginBottom: 5 }}>
             {this.state.dueDate.toString()}

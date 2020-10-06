@@ -67,7 +67,10 @@ class Tasks extends Component {
       <tr key={task.taskId}>
         <td>{task.priority}</td>
         <td>
-          <Link to={`/project/${this.state.projectId}/task/${task.taskId}`}>
+          <Link
+            to={`/project/${this.state.projectId}/task/${task.taskId}`}
+            style={{ fontFamily: "Montserrat" }}
+          >
             {task.taskName}
           </Link>
         </td>

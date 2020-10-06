@@ -48,7 +48,10 @@ class User extends Component {
             {this.state.projects.map((project) => (
               <tr key={project.projectId}>
                 <td>
-                  <Link to={`/project/${project.projectId}`}>
+                  <Link
+                    to={`/project/${project.projectId}`}
+                    style={{ fontFamily: "Montserrat" }}
+                  >
                     {project.projectName}
                   </Link>
                 </td>
