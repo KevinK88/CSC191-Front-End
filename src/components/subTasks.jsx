@@ -213,7 +213,7 @@ class SubTasks extends Component {
         </Link>
         <button
           onClick={() => this.handleDeleteMain()}
-          className="btn btn-danger btn-sm"
+          className="btn btn-danger btn-sm border-white"
         >
           Delete
         </button>
