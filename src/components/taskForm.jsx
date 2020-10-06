@@ -126,7 +126,7 @@ class TaskForm extends Component {
               <option value="true">Complete</option>
               <option value="false">Incomplete</option>
             </select>
-            <button type="submit" className="btn btn-primary mt-2">
+            <button type="submit" className="btn btn-primary mt-2 border-white">
               Submit
             </button>
           </div>
