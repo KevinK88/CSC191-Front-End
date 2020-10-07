@@ -154,12 +154,22 @@ class SubTasks extends Component {
               }, //
             }}
             className="btn btn-primary btn-sm mr-2"
+            style={{
+              backgroundColor: "#c4ffbf",
+              border: "none",
+              color: "black",
+            }}
           >
             Edit
           </Link>
           <button
             onClick={() => this.handleDelete(task)}
             className="btn btn-danger btn-sm"
+            style={{
+              backgroundColor: "#ffbfbf",
+              border: "none",
+              color: "black",
+            }}
           >
             Delete
           </button>
@@ -211,12 +221,22 @@ class SubTasks extends Component {
             },
           }}
           className="btn btn-primary btn-sm mr-2"
+          style={{
+            backgroundColor: "#c4ffbf",
+            border: "none",
+            color: "black",
+          }}
         >
           Edit
         </Link>
         <button
           onClick={() => this.handleDeleteMain()}
-          className="btn btn-danger btn-sm border-white"
+          className="btn btn-danger btn-sm"
+          style={{
+            backgroundColor: "#ffbfbf",
+            border: "none",
+            color: "black",
+          }}
         >
           Delete
         </button>
@@ -228,8 +248,14 @@ class SubTasks extends Component {
               type: "new sub",
             },
           }}
-          className="btn btn-primary mt-2 border-secondary"
-          style={{ marginLeft: 15, marginBottom: 10 }}
+          className="btn btn-primary mt-2"
+          style={{
+            backgroundColor: "#c4ffbf",
+            border: "none",
+            color: "black",
+            marginLeft: 15,
+            marginBottom: 10,
+          }}
         >
           New Subtask
         </Link>

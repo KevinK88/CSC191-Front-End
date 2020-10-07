@@ -38,8 +38,13 @@ class User extends Component {
             pathname: "/project/new",
             state: { email: this.state.credentials.email },
           }}
-          className="btn btn-primary border-danger"
-          style={{ marginBottom: 20 }}
+          className="btn btn-primary"
+          style={{
+            backgroundColor: "#c4ffbf",
+            border: "none",
+            color: "black",
+            marginBottom: 20,
+          }}
         >
           New Project
         </Link>
@@ -59,13 +64,22 @@ class User extends Component {
                   <Link
                     to={`/project/${project.projectId}/edit/${project.projectName}`}
                     className="btn btn-primary btn-sm mr-2"
-                    style={{ color: "white", textDecoration: "none" }}
+                    style={{
+                      backgroundColor: "#c4ffbf",
+                      border: "none",
+                      color: "black",
+                    }}
                   >
                     Edit
                   </Link>
                   <button
                     onClick={() => this.handleDelete(project)}
                     className="btn btn-danger btn-sm"
+                    style={{
+                      backgroundColor: "#ffbfbf",
+                      border: "none",
+                      color: "black",
+                    }}
                   >
                     Delete
                   </button>

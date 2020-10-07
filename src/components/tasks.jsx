@@ -95,12 +95,22 @@ class Tasks extends Component {
               },
             }}
             className="btn btn-primary btn-sm mr-2"
+            style={{
+              backgroundColor: "#c4ffbf",
+              border: "none",
+              color: "black",
+            }}
           >
             Edit
           </Link>
           <button
             onClick={() => this.handleDelete(task)}
             className="btn btn-danger btn-sm"
+            style={{
+              backgroundColor: "#ffbfbf",
+              border: "none",
+              color: "black",
+            }}
           >
             Delete
           </button>
@@ -128,7 +138,12 @@ class Tasks extends Component {
             state: { parentTaskId: "0", type: "new main" },
           }}
           className="btn btn-primary mt-2"
-          style={{ marginBottom: 15 }}
+          style={{
+            backgroundColor: "#c4ffbf",
+            border: "none",
+            color: "black",
+            marginBottom: 20,
+          }}
         >
           New Task
         </Link>

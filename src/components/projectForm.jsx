@@ -66,7 +66,15 @@ class ProjectForm extends Component {
               value={this.state.projectName}
               onChange={this.handleChange}
             />
-            <button type="submit" className="btn btn-primary mt-2">
+            <button
+              type="submit"
+              className="btn btn-primary mt-2"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "none",
+                color: "black",
+              }}
+            >
               Submit
             </button>
           </div>

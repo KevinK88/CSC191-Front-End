@@ -71,7 +71,15 @@ class LoginForm extends Component {
               onChange={this.handleChange}
             />
             {warning}
-            <button type="submit" className="btn btn-primary mt-2 border-white">
+            <button
+              type="submit"
+              className="btn btn-primary mt-2"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "none",
+                color: "black",
+              }}
+            >
               Submit
             </button>
           </div>
