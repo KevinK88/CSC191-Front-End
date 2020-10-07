@@ -65,6 +65,11 @@ class ProjectForm extends Component {
               className="form-control"
               value={this.state.projectName}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <button
               type="submit"

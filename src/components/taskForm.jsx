@@ -87,6 +87,11 @@ class TaskForm extends Component {
               className="form-control"
               value={this.state.taskName}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="taskDescription">Task Description</label>
             <input
@@ -96,6 +101,11 @@ class TaskForm extends Component {
               className="form-control"
               value={this.state.taskDescription}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="priority">Priority</label>
             <input
@@ -105,6 +115,11 @@ class TaskForm extends Component {
               className="form-control"
               value={this.state.priority}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="dueDate">Due Date</label>
             <input
@@ -114,6 +129,11 @@ class TaskForm extends Component {
               className="form-control"
               value={this.state.dueDate}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="completed">Status</label>
             <select
@@ -122,6 +142,11 @@ class TaskForm extends Component {
               className="form-control"
               value={this.state.completed}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             >
               <option value="true">Complete</option>
               <option value="false">Incomplete</option>

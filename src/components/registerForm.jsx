@@ -57,6 +57,11 @@ class RegisterForm extends Component {
               className="form-control"
               value={this.state.email}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="Password">Password</label>
             <input
@@ -66,6 +71,11 @@ class RegisterForm extends Component {
               className="form-control"
               value={this.state.password}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <label htmlFor="Confirm Password">Confirm Password</label>
             <input
@@ -75,6 +85,11 @@ class RegisterForm extends Component {
               className="form-control"
               value={this.state.confirmPassword}
               onChange={this.handleChange}
+              style={{
+                backgroundColor: "#454545",
+                color: "white",
+                border: "1px solid black",
+              }}
             />
             <button
               type="submit"
