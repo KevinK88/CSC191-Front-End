@@ -46,7 +46,7 @@ class RegisterForm extends Component {
   render() {
     return (
       <div>
-        <h1>Sign Up</h1>
+        <h1 className="form-group-center">Sign Up</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -76,9 +76,10 @@ class RegisterForm extends Component {
               value={this.state.confirmPassword}
               onChange={this.handleChange}
             />
-            <button type="submit" className="btn btn-primary mt-2">
+            <button type="submit" className="btn btn-primary mt-4 button-center">
               Submit
             </button>
+           
           </div>
         </form>
       </div>

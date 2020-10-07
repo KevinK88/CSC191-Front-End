@@ -20,9 +20,21 @@ h2 {
 .clickable {
   cursor: pointer;
 }
+.right{
+  margin-left: 70rem;
+}
+.form-group{
 
+  padding:0 300px 0 300px;
+}.form-group-center{
+
+  padding:0 0 0 500px;
+}
+.button-center{
+  margin: 220px;
+}
 .icon {
-  max-width: 40px;
+  max-width: 100px;
   max-height: 40px;
   padding-right: 10px;
 }

@@ -49,7 +49,7 @@ class LoginForm extends Component {
     }
     return (
       <div>
-        <h1>Login</h1>
+        <h1 className="form-group-center">Login</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -71,9 +71,11 @@ class LoginForm extends Component {
               onChange={this.handleChange}
             />
             {warning}
-            <button type="submit" className="btn btn-primary mt-2 border-white">
+            <button type="submit" className="btn btn-primary mt-4 border-white button-center">
               Submit
             </button>
+
+            
           </div>
         </form>
       </div>
