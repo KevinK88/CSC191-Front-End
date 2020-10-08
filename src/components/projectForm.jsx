@@ -57,7 +57,9 @@ class ProjectForm extends Component {
         <h1>Project Details</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="projectName">Project Name</label>
+            <label htmlFor="projectName" style={{ fontWeight: "600" }}>
+              Project Name
+            </label>
             <input
               id="projectName"
               name="projectName"

@@ -46,10 +46,12 @@ class RegisterForm extends Component {
   render() {
     return (
       <div>
-        <h1>Sign Up</h1>
+        <h1 style={{ marginBottom: "20px" }}>Sign Up</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" style={{ fontWeight: "600" }}>
+              Email
+            </label>
             <input
               id="email"
               name="email"
@@ -63,7 +65,9 @@ class RegisterForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="Password">Password</label>
+            <label htmlFor="Password" style={{ fontWeight: "600" }}>
+              Password
+            </label>
             <input
               id="password"
               name="password"
@@ -77,7 +81,9 @@ class RegisterForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="Confirm Password">Confirm Password</label>
+            <label htmlFor="Confirm Password" style={{ fontWeight: "600" }}>
+              Confirm Password
+            </label>
             <input
               id="confirmPassword"
               name="confirmPassword"
@@ -98,6 +104,7 @@ class RegisterForm extends Component {
                 backgroundColor: "#c4ffbf",
                 border: "none",
                 color: "black",
+                fontWeight: "600",
               }}
             >
               Submit

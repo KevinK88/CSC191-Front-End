@@ -127,7 +127,11 @@ class SubTasks extends Component {
         <td>
           <Link
             to={`/project/${this.state.projectId}/task/${task.taskId}`}
-            style={{ fontFamily: "Montserrat" }}
+            style={{
+              fontFamily: "Montserrat",
+              fontWeight: "600",
+              color: "#c5ffad",
+            }}
           >
             {task.taskName}
           </Link>
@@ -136,8 +140,12 @@ class SubTasks extends Component {
 
         <td>{task.subTaskCount} Tasks</td>
         <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
-        {!task.completed && <td style={{ color: "#e57373" }}>Incomplete</td>}
-        {task.completed && <td style={{ color: "green" }}>Complete</td>}
+        {!task.completed && (
+          <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
+        )}
+        {task.completed && (
+          <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
+        )}
         <td className="d-flex justify-content-end">
           <Link
             to={{
@@ -158,6 +166,7 @@ class SubTasks extends Component {
               backgroundColor: "#c4ffbf",
               border: "none",
               color: "black",
+              fontWeight: "600",
             }}
           >
             Edit
@@ -169,6 +178,7 @@ class SubTasks extends Component {
               backgroundColor: "#ffbfbf",
               border: "none",
               color: "black",
+              fontWeight: "600",
             }}
           >
             Delete
@@ -176,7 +186,7 @@ class SubTasks extends Component {
           <button
             onClick={() => this.getSubtasks(task)}
             className="btn btn-secondary btn-sm"
-            style={{ marginLeft: 7 }}
+            style={{ marginLeft: 7, fontWeight: "600", color: "black" }}
           >
             Expand
           </button>
@@ -188,21 +198,25 @@ class SubTasks extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2 style={{ marginBottom: 2, fontWeight: 400 }}>
+        <h2 style={{ marginBottom: 2, fontWeight: "600" }}>
           {this.state.taskName}
         </h2>
         <p style={{ color: "#c9c9c9", marginBottom: 5 }}>
           {this.state.taskDescription}
         </p>
         {!this.state.completed && (
-          <p style={{ color: "#e57373", marginBottom: 0 }}>Incomplete</p>
+          <p style={{ color: "#e57373", marginBottom: 0, fontWeight: "600" }}>
+            Incomplete
+          </p>
         )}
         {this.state.completed && (
-          <p style={{ color: "green", marginBottom: 0 }}>Complete</p>
+          <p style={{ color: "green", marginBottom: 0, fontWeight: "600" }}>
+            Complete
+          </p>
         )}
         <p style={{ marginBottom: 5, fontFamily: "Montserrat" }}>
           {this.getDaysLeft(this.state.dueDate)} days until{" "}
-          <span style={{ fontWeight: "bold", marginBottom: 5 }}>
+          <span style={{ marginBottom: 5 }}>
             {this.state.dueDate.toString()}
           </span>
         </p>
@@ -225,6 +239,7 @@ class SubTasks extends Component {
             backgroundColor: "#c4ffbf",
             border: "none",
             color: "black",
+            fontWeight: "600",
           }}
         >
           Edit
@@ -236,6 +251,7 @@ class SubTasks extends Component {
             backgroundColor: "#ffbfbf",
             border: "none",
             color: "black",
+            fontWeight: "600",
           }}
         >
           Delete
@@ -255,6 +271,7 @@ class SubTasks extends Component {
             color: "black",
             marginLeft: 15,
             marginBottom: 10,
+            fontWeight: "600",
           }}
         >
           New Subtask
