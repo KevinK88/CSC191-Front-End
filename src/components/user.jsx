@@ -44,6 +44,7 @@ class User extends Component {
             border: "none",
             color: "black",
             marginBottom: 20,
+            fontWeight: "600",
           }}
         >
           New Project
@@ -55,7 +56,11 @@ class User extends Component {
                 <td>
                   <Link
                     to={`/project/${project.projectId}`}
-                    style={{ fontFamily: "Montserrat" }}
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#c5ffad",
+                      fontWeight: "600",
+                    }}
                   >
                     {project.projectName}
                   </Link>
@@ -68,6 +73,7 @@ class User extends Component {
                       backgroundColor: "#c4ffbf",
                       border: "none",
                       color: "black",
+                      fontWeight: "600",
                     }}
                   >
                     Edit
@@ -79,6 +85,7 @@ class User extends Component {
                       backgroundColor: "#ffbfbf",
                       border: "none",
                       color: "black",
+                      fontWeight: "600",
                     }}
                   >
                     Delete

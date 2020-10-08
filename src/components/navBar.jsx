@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticated } from "../App";
-import logo from './icon.png';
+import logo from "./icon.png";
 
 class NavBar extends Component {
   logoutUser = () => {
@@ -16,9 +16,9 @@ class NavBar extends Component {
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div>
-              <img src={logo} alt="Intangibles Icon" className = "icon"/>
+            <img src={logo} alt="Intangibles Icon" className="icon" />
           </div>
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/" style={{ color: "#c5ffad" }}>
             Intangible Manager
           </Link>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -41,7 +41,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div>
-            <img src={logo} alt="Intangibles Icon" className="icon" />
+          <img src={logo} alt="Intangibles Icon" className="icon" />
         </div>
         <Link className="navbar-brand" to="/">
           Intangible Manager

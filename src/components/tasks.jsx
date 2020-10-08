@@ -69,7 +69,11 @@ class Tasks extends Component {
         <td>
           <Link
             to={`/project/${this.state.projectId}/task/${task.taskId}`}
-            style={{ fontFamily: "Montserrat" }}
+            style={{
+              fontFamily: "Montserrat",
+              color: "#c5ffad",
+              fontWeight: "600",
+            }}
           >
             {task.taskName}
           </Link>
@@ -77,8 +81,12 @@ class Tasks extends Component {
         <td>{task.taskDescription}</td>
         <td>{task.subTaskCount} Tasks</td>
         <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
-        {!task.completed && <td style={{ color: "#e57373" }}>Incomplete</td>}
-        {task.completed && <td style={{ color: "green" }}>Complete</td>}
+        {!task.completed && (
+          <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
+        )}
+        {task.completed && (
+          <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
+        )}
         <td className="d-flex justify-content-end">
           <Link
             to={{
@@ -99,6 +107,7 @@ class Tasks extends Component {
               backgroundColor: "#c4ffbf",
               border: "none",
               color: "black",
+              fontWeight: "600",
             }}
           >
             Edit
@@ -110,6 +119,7 @@ class Tasks extends Component {
               backgroundColor: "#ffbfbf",
               border: "none",
               color: "black",
+              fontWeight: "600",
             }}
           >
             Delete
@@ -117,7 +127,7 @@ class Tasks extends Component {
           <button
             onClick={() => this.getSubtasks(task)}
             className="btn btn-secondary btn-sm"
-            style={{ marginLeft: 7 }}
+            style={{ marginLeft: 7, fontWeight: "600", color: "black" }}
           >
             Expand
           </button>
@@ -129,7 +139,7 @@ class Tasks extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2 style={{ marginBottom: 5, fontWeight: 400 }}>
+        <h2 style={{ marginBottom: 5, fontWeight: "600" }}>
           {this.state.projectName}
         </h2>
         <Link
@@ -143,6 +153,7 @@ class Tasks extends Component {
             border: "none",
             color: "black",
             marginBottom: 20,
+            fontWeight: "600",
           }}
         >
           New Task

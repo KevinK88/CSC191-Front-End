@@ -79,7 +79,9 @@ class TaskForm extends Component {
         <h1>Task Details</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="taskName">Task Name</label>
+            <label htmlFor="taskName" style={{ fontWeight: "600" }}>
+              Task Name
+            </label>
             <input
               id="taskName"
               name="taskName"
@@ -93,7 +95,9 @@ class TaskForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="taskDescription">Task Description</label>
+            <label htmlFor="taskDescription" style={{ fontWeight: "600" }}>
+              Task Description
+            </label>
             <input
               id="taskDescription"
               name="taskDescription"
@@ -107,7 +111,9 @@ class TaskForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="priority">Priority</label>
+            <label htmlFor="priority" style={{ fontWeight: "600" }}>
+              Priority
+            </label>
             <input
               id="priority"
               name="priority"
@@ -121,7 +127,9 @@ class TaskForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="dueDate">Due Date</label>
+            <label htmlFor="dueDate" style={{ fontWeight: "600" }}>
+              Due Date
+            </label>
             <input
               id="dueDate"
               name="dueDate"
@@ -135,7 +143,9 @@ class TaskForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="completed">Status</label>
+            <label htmlFor="completed" style={{ fontWeight: "600" }}>
+              Status
+            </label>
             <select
               id="completed"
               name="completed"

@@ -49,10 +49,12 @@ class LoginForm extends Component {
     }
     return (
       <div>
-        <h1>Login</h1>
+        <h1 style={{ marginBottom: "20px" }}>Login</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" style={{ fontWeight: "600" }}>
+              Email
+            </label>
             <input
               id="email"
               name="email"
@@ -66,7 +68,9 @@ class LoginForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" style={{ fontWeight: "600" }}>
+              Password
+            </label>
             <input
               id="password"
               name="password"
@@ -88,6 +92,7 @@ class LoginForm extends Component {
                 backgroundColor: "#c4ffbf",
                 border: "1px solid black",
                 color: "black",
+                fontWeight: "600",
               }}
             >
               Submit
