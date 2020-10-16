@@ -14,7 +14,6 @@ class SubTasks extends Component {
     dueDate: {},
     tasks: [],
     subTasks: [],
-    expanded: false,
   };
 
   async componentDidMount() {
@@ -109,7 +108,7 @@ class SubTasks extends Component {
       axios
         .get(`/project/${this.state.projectId}/task/${task.taskId}`)
         .then((res) => {
-          this.setState({ subTasks: res.data.subTasks, expanded: true });
+          this.setState({ subTasks: res.data.subTasks });
         })
         .catch((err) => {
           console.log(err);
@@ -124,13 +123,20 @@ class SubTasks extends Component {
 
   renderCard = (task) => {
     return (
-      <div key={task.taskId} className="card text-white bg-dark">
+      <div
+        key={task.taskId}
+        className="card text-white bg-dark"
+        style={{
+          marginBottom: "15px",
+          boxShadow: " 0 7px 30px -10px rgba(0,0,0,0.5)",
+        }}
+      >
         <Link
           to={`/project/${this.state.projectId}/task/${task.taskId}`}
           className="card-body clickable"
           style={{ textDecoration: "none" }}
         >
-          <h5
+          <h4
             className="card-title"
             style={{
               fontFamily: "Montserrat",
@@ -138,94 +144,109 @@ class SubTasks extends Component {
               color: "#c4ffbf",
             }}
           >
-            <span
-              style={{ fontStyle: "italic", fontWeight: "400", color: "white" }}
-            >
-              {task.priority + " "}
-            </span>
             {task.taskName}
-          </h5>
+          </h4>
           <p className="card-text" style={{ color: "white" }}>
             {task.taskDescription}
           </p>
         </Link>
-        <div>
-          <ul className="list-group list-group-flush">
-            {!task.completed && (
-              <li
-                className="list-group-item bg-dark"
-                style={{ color: "#e57373", fontWeight: "600" }}
-              >
-                Incomplete
-              </li>
-            )}
-            {task.completed && (
-              <li
-                className="list-group-item bg-dark"
-                style={{ color: "#c5ffad", fontWeight: "600" }}
-              >
-                Complete
-              </li>
-            )}
-            <li className="list-group-item text-white bg-dark">
-              {this.getDaysLeft(task.dueDate)} Days Remaining
-            </li>
-            <li className="list-group-item text-white bg-dark">
-              {task.subTaskCount} Subtasks
-            </li>
-          </ul>
-          <div className="card-body">
-            <Link
-              to={{
-                pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
-                state: {
-                  parentTaskId: task.parentTaskId,
-                  taskId: task.taskId,
-                  taskName: task.taskName,
-                  taskDescription: task.taskDescription,
-                  priority: task.priority,
-                  completed: task.completed,
-                  dueDate: task.dueDate,
-                  type: "edit main",
-                },
-              }}
-              className="btn btn-primary btn-sm mr-2"
-              style={{
-                backgroundColor: "#c4ffbf",
-                border: "none",
-                color: "black",
-                fontWeight: "600",
-              }}
-            >
-              Edit
-            </Link>
-            <button
-              onClick={() => this.handleDelete(task)}
-              className="btn btn-danger btn-sm"
-              style={{
-                backgroundColor: "#ffbfbf",
-                border: "none",
-                color: "black",
-                fontWeight: "600",
-              }}
-            >
-              Delete
-            </button>
-            <button
-              onClick={() => this.setExpanded(task)}
-              className="btn btn-secondary btn-sm"
-              style={{
-                backgroundColor: "#ffffff",
-                marginLeft: 7,
-                fontWeight: "600",
-                color: "black",
-                border: "none",
-              }}
-            >
-              Expand
-            </button>
+        <div
+          className="d-flex flex-row justify-content-start align-items-center"
+          style={{ borderTop: "solid 1px black", paddingTop: "10px" }}
+        >
+          <div
+            style={{
+              fontStyle: "italic",
+              fontWeight: "400",
+              color: "white",
+              marginLeft: "20px",
+              marginRight: "20px",
+            }}
+          >
+            Priority {task.priority + " "}
           </div>
+          {!task.completed && (
+            <div
+              className="bg-dark card-text"
+              style={{
+                color: "#e57373",
+                fontWeight: "600",
+                marginRight: "20px",
+              }}
+            >
+              Incomplete
+            </div>
+          )}
+          {task.completed && (
+            <div
+              className="bg-dark "
+              style={{
+                color: "#c5ffad",
+                fontWeight: "600",
+                marginRight: "20px",
+              }}
+            >
+              Complete
+            </div>
+          )}
+          <div className="text-white bg-dark" style={{ marginRight: "20px" }}>
+            {this.getDaysLeft(task.dueDate)} Days Remaining
+          </div>
+          <div className="text-white bg-dark">{task.subTaskCount} Subtasks</div>
         </div>
+        <div className="card-body d-flex flex-row justify-content-start">
+          <Link
+            to={{
+              pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
+              state: {
+                parentTaskId: task.parentTaskId,
+                taskId: task.taskId,
+                taskName: task.taskName,
+                taskDescription: task.taskDescription,
+                priority: task.priority,
+                completed: task.completed,
+                dueDate: task.dueDate,
+                type: "edit main",
+              },
+            }}
+            className="btn btn-primary btn-sm mr-2"
+            style={{
+              backgroundColor: "#c4ffbf",
+              border: "none",
+              color: "black",
+              fontWeight: "600",
+            }}
+          >
+            Edit
+          </Link>
+          <button
+            onClick={() => this.handleDelete(task)}
+            className="btn btn-danger btn-sm"
+            style={{
+              backgroundColor: "#ffbfbf",
+              border: "none",
+              color: "black",
+              fontWeight: "600",
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => this.setExpanded(task)}
+            className="btn btn-secondary btn-sm"
+            style={{
+              backgroundColor: "#ffffff",
+              marginLeft: 7,
+              fontWeight: "600",
+              color: "black",
+              border: "none",
+            }}
+          >
+            Expand
+          </button>
+        </div>
+
+        {task.expanded && <div className="card-body">subtasks here</div>}
       </div>
     );
 
@@ -306,9 +327,14 @@ class SubTasks extends Component {
       <React.Fragment>
         <div
           className="card text-white bg-dark"
-          style={{ marginBottom: "12px" }}
+          style={{
+            marginBottom: "20px",
+            border: "solid 1px #c4ffbf",
+            borderRadius: "5px",
+            boxShadow: " 0 7px 30px -10px rgba(0,0,0,0.5)",
+          }}
         >
-          <div className="card-body">
+          <div className="card-body" style={{ border: "none" }}>
             <h2
               className="card-title"
               style={{ marginBottom: 2, fontWeight: "600" }}
@@ -319,7 +345,10 @@ class SubTasks extends Component {
               {this.state.taskDescription}
             </p>
           </div>
-          <ul className="list-group list-group-flush">
+          <ul
+            className="list-group list-group-flush"
+            style={{ border: "none" }}
+          >
             {!this.state.completed && (
               <li
                 className="list-group-item bg-dark"
@@ -468,7 +497,7 @@ class SubTasks extends Component {
         >
           New Subtask
         </Link> */}
-        <div className="card-group" style={{ textDecoration: "none" }}>
+        <div className="list-group-flush" style={{ textDecoration: "none" }}>
           {this.state.tasks.map((task) => this.renderCard(task))}
         </div>
         {/* {this.state.expanded && (
