@@ -103,25 +103,47 @@ class SubTasks extends Component {
     );
   };
 
-  getSubtasks = (task) => {
-    if (this.state.expanded === false) {
-      axios
+  async getSubTasks(task) {
+    if (!task.hasOwnProperty("subTasks")) {
+      await axios
         .get(`/project/${this.state.projectId}/task/${task.taskId}`)
         .then((res) => {
-          this.setState({ subTasks: res.data.subTasks });
+          let newSubTasks = JSON.parse(JSON.stringify(res.data.subTasks));
+          var newTasks = this.state.tasks;
+          var index = this.state.tasks.findIndex(
+            (x) => x.taskId === task.taskId
+          );
+          newTasks[index].subTasks = newSubTasks;
+          this.setState({ tasks: newTasks });
         })
         .catch((err) => {
           console.log(err);
         });
-    } else if (this.state.expanded === true) {
-      this.setState({ expanded: false });
     }
-    console.log(this.state.tasks, this.state.expanded);
+  }
+
+  setExpanded = (task) => {
+    var newTasks = this.state.tasks;
+    var index = this.state.tasks.findIndex((x) => x.taskId === task.taskId);
+    if (task.hasOwnProperty("expanded")) {
+      //task already has expanded property
+      newTasks[index].expanded = !newTasks[index].expanded;
+    } else {
+      //task does not contain expanded property yet
+      newTasks[index].expanded = true;
+    }
+    this.setState({ tasks: newTasks });
+    if (this.state.tasks[index].expanded) {
+      this.getSubTasks(task);
+    }
   };
 
-  setExpanded = (task) => {};
-
   renderCard = (task) => {
+    let listSubTasks;
+    if (task.hasOwnProperty("subTasks")) {
+      listSubTasks = task.subTasks;
+      console.log(listSubTasks);
+    }
     return (
       <div
         key={task.taskId}
@@ -246,7 +268,11 @@ class SubTasks extends Component {
           </button>
         </div>
 
-        {task.expanded && <div className="card-body">subtasks here</div>}
+        {listSubTasks && task.expanded && (
+          <table className="" style={{ margin: "0px 10px 20px 20px" }}>
+            <tbody>{this.renderSubTasks(task)}</tbody>
+          </table>
+        )}
       </div>
     );
 
@@ -320,6 +346,38 @@ class SubTasks extends Component {
     //     </button>
     //   </td>
     // </tr>;
+  };
+
+  renderSubTasks = (task) => {
+    console.log(task);
+    const listItems = task.subTasks.map((subTask) => (
+      <tr key={subTask.taskId}>
+        <td>{subTask.priority}</td>
+        <td>
+          <Link
+            to={`/project/${this.state.projectId}/task/${subTask.taskId}`}
+            style={{
+              fontFamily: "Montserrat",
+              color: "#c5ffad",
+              fontWeight: "600",
+            }}
+          >
+            {subTask.taskName}
+          </Link>
+        </td>
+        <td>{subTask.taskDescription}</td>
+        <td>{subTask.subTaskCount} Tasks</td>
+        <td>{this.getDaysLeft(subTask.dueDate)} Days Left</td>
+        {!subTask.completed && (
+          <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
+        )}
+        {subTask.completed && (
+          <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
+        )}
+      </tr>
+    ));
+
+    return listItems;
   };
 
   render() {

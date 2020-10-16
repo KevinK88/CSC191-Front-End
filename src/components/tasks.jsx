@@ -7,7 +7,6 @@ class Tasks extends Component {
     projectId: "",
     projectName: "",
     tasks: [],
-    subTasks: [],
   };
 
   async componentDidMount() {
@@ -36,18 +35,24 @@ class Tasks extends Component {
     }
   };
 
-  getSubtasks = (task) => {
-    axios
-      .get(`/project/${this.state.projectId}/task/${task.taskId}`)
-      .then((res) => {
-        this.setState({ subTasks: res.data.subTasks });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    console.log(this.state.subTasks, this.state.expanded);
-  };
+  async getSubTasks(task) {
+    if (!task.hasOwnProperty("subTasks")) {
+      await axios
+        .get(`/project/${this.state.projectId}/task/${task.taskId}`)
+        .then((res) => {
+          let newSubTasks = JSON.parse(JSON.stringify(res.data.subTasks));
+          var newTasks = this.state.tasks;
+          var index = this.state.tasks.findIndex(
+            (x) => x.taskId === task.taskId
+          );
+          newTasks[index].subTasks = newSubTasks;
+          this.setState({ tasks: newTasks });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
 
   getDaysLeft = (dueDateString) => {
     var dueDate = new Date(dueDateString);
@@ -58,16 +63,34 @@ class Tasks extends Component {
     );
   };
 
-  setExpanded = (task) => {};
+  setExpanded = (task) => {
+    var newTasks = this.state.tasks;
+    var index = this.state.tasks.findIndex((x) => x.taskId === task.taskId);
+    if (task.hasOwnProperty("expanded")) {
+      //task already has expanded property
+      newTasks[index].expanded = !newTasks[index].expanded;
+    } else {
+      //task does not contain expanded property yet
+      newTasks[index].expanded = true;
+    }
+    this.setState({ tasks: newTasks });
+    if (this.state.tasks[index].expanded) {
+      this.getSubTasks(task);
+    }
+  };
 
   renderCard = (task) => {
+    let listSubTasks;
+    if (task.hasOwnProperty("subTasks")) {
+      listSubTasks = task.subTasks;
+      console.log(listSubTasks);
+    }
     return (
       <div
         key={task.taskId}
         className="card text-white bg-dark"
         style={{
           marginBottom: "15px",
-
           boxShadow: " 0 7px 30px -10px rgba(0,0,0,0.5)",
         }}
       >
@@ -186,7 +209,11 @@ class Tasks extends Component {
           </button>
         </div>
 
-        {task.expanded && <div className="card-body">subtasks here</div>}
+        {listSubTasks && task.expanded && (
+          <table className="" style={{ margin: "0px 10px 20px 20px" }}>
+            <tbody>{this.renderSubTasks(task)}</tbody>
+          </table>
+        )}
       </div>
     );
 
@@ -259,6 +286,38 @@ class Tasks extends Component {
     //     </button>
     //   </td>
     // </tr>;
+  };
+
+  renderSubTasks = (task) => {
+    console.log(task);
+    const listItems = task.subTasks.map((subTask) => (
+      <tr key={subTask.taskId}>
+        <td>{subTask.priority}</td>
+        <td>
+          <Link
+            to={`/project/${this.state.projectId}/task/${subTask.taskId}`}
+            style={{
+              fontFamily: "Montserrat",
+              color: "#c5ffad",
+              fontWeight: "600",
+            }}
+          >
+            {subTask.taskName}
+          </Link>
+        </td>
+        <td>{subTask.taskDescription}</td>
+        <td>{subTask.subTaskCount} Tasks</td>
+        <td>{this.getDaysLeft(subTask.dueDate)} Days Left</td>
+        {!subTask.completed && (
+          <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
+        )}
+        {subTask.completed && (
+          <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
+        )}
+      </tr>
+    ));
+
+    return listItems;
   };
 
   render() {
