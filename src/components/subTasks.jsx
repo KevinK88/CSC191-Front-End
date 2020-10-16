@@ -120,6 +120,8 @@ class SubTasks extends Component {
     console.log(this.state.tasks, this.state.expanded);
   };
 
+  setExpanded = (task) => {};
+
   renderCard = (task) => {
     return (
       <div key={task.taskId} className="card text-white bg-dark">
@@ -172,7 +174,57 @@ class SubTasks extends Component {
               {task.subTaskCount} Subtasks
             </li>
           </ul>
-          <div className="card-body">{/*buttons go here*/}</div>
+          <div className="card-body">
+            <Link
+              to={{
+                pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
+                state: {
+                  parentTaskId: task.parentTaskId,
+                  taskId: task.taskId,
+                  taskName: task.taskName,
+                  taskDescription: task.taskDescription,
+                  priority: task.priority,
+                  completed: task.completed,
+                  dueDate: task.dueDate,
+                  type: "edit main",
+                },
+              }}
+              className="btn btn-primary btn-sm mr-2"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "none",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
+              Edit
+            </Link>
+            <button
+              onClick={() => this.handleDelete(task)}
+              className="btn btn-danger btn-sm"
+              style={{
+                backgroundColor: "#ffbfbf",
+                border: "none",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => this.setExpanded(task)}
+              className="btn btn-secondary btn-sm"
+              style={{
+                backgroundColor: "#ffffff",
+                marginLeft: 7,
+                fontWeight: "600",
+                color: "black",
+                border: "none",
+              }}
+            >
+              Expand
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -299,7 +351,65 @@ class SubTasks extends Component {
               }
             </li>
           </ul>
-          <div className="card-body"></div>
+          <div className="card-body">
+            {" "}
+            <Link
+              to={{
+                pathname: `/project/${this.state.projectId}/task/${this.state.taskId}/edit`,
+                state: {
+                  parentTaskId: this.state.parentTaskId,
+                  taskId: this.state.taskId,
+                  taskName: this.state.taskName,
+                  taskDescription: this.state.taskDescription,
+                  priority: this.state.priority,
+                  completed: this.state.completed,
+                  dueDate: this.state.dueDate,
+                  type: "edit subpage",
+                },
+              }}
+              className="btn btn-primary btn-sm mr-2"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "none",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
+              Edit
+            </Link>
+            <button
+              onClick={() => this.handleDeleteMain()}
+              className="btn btn-danger btn-sm"
+              style={{
+                backgroundColor: "#ffbfbf",
+                border: "none",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
+              Delete
+            </button>
+            <Link
+              to={{
+                pathname: `/project/${this.props.match.params.projectId}/task/${this.state.taskId}/subtask`,
+                state: {
+                  parentTaskId: this.state.taskId,
+                  type: "new sub",
+                },
+              }}
+              className="btn btn-primary mt-2"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "none",
+                color: "black",
+                marginLeft: 15,
+                marginBottom: 10,
+                fontWeight: "600",
+              }}
+            >
+              New Subtask
+            </Link>{" "}
+          </div>
         </div>
 
         {/* <Link
