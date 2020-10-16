@@ -8,7 +8,6 @@ class Tasks extends Component {
     projectName: "",
     tasks: [],
     subTasks: [],
-    expanded: false,
   };
 
   async componentDidMount() {
@@ -62,78 +61,132 @@ class Tasks extends Component {
     );
   };
 
-  renderRow = (task) => {
+  renderCard = (task) => {
     return (
-      <tr key={task.taskId}>
-        <td>{task.priority}</td>
-        <td>
-          <Link
-            to={`/project/${this.state.projectId}/task/${task.taskId}`}
+      <div key={task.taskId} className="card text-white bg-dark">
+        <Link
+          to={`/project/${this.state.projectId}/task/${task.taskId}`}
+          className="card-body clickable"
+          style={{ textDecoration: "none" }}
+        >
+          <h5
+            className="card-title"
             style={{
               fontFamily: "Montserrat",
-              color: "#c5ffad",
               fontWeight: "600",
+              color: "#c4ffbf",
             }}
           >
+            <span
+              style={{ fontStyle: "italic", fontWeight: "400", color: "white" }}
+            >
+              {task.priority + " "}
+            </span>
             {task.taskName}
-          </Link>
-        </td>
-        <td>{task.taskDescription}</td>
-        <td>{task.subTaskCount} Tasks</td>
-        <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
-        {!task.completed && (
-          <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
-        )}
-        {task.completed && (
-          <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
-        )}
-        <td className="d-flex justify-content-end">
-          <Link
-            to={{
-              pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
-              state: {
-                parentTaskId: task.parentTaskId,
-                taskId: task.taskId,
-                taskName: task.taskName,
-                taskDescription: task.taskDescription,
-                priority: task.priority,
-                completed: task.completed,
-                dueDate: task.dueDate,
-                type: "edit main",
-              },
-            }}
-            className="btn btn-primary btn-sm mr-2"
-            style={{
-              backgroundColor: "#c4ffbf",
-              border: "none",
-              color: "black",
-              fontWeight: "600",
-            }}
-          >
-            Edit
-          </Link>
-          <button
-            onClick={() => this.handleDelete(task)}
-            className="btn btn-danger btn-sm"
-            style={{
-              backgroundColor: "#ffbfbf",
-              border: "none",
-              color: "black",
-              fontWeight: "600",
-            }}
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => this.getSubtasks(task)}
-            className="btn btn-secondary btn-sm"
-            style={{ marginLeft: 7, fontWeight: "600", color: "black" }}
-          >
-            Expand
-          </button>
-        </td>
-      </tr>
+          </h5>
+          <p className="card-text" style={{ color: "white" }}>
+            {task.taskDescription}
+          </p>
+        </Link>
+        <div>
+          <ul className="list-group list-group-flush">
+            {!task.completed && (
+              <li
+                className="list-group-item bg-dark"
+                style={{ color: "#e57373", fontWeight: "600" }}
+              >
+                Incomplete
+              </li>
+            )}
+            {task.completed && (
+              <li
+                className="list-group-item bg-dark"
+                style={{ color: "#c5ffad", fontWeight: "600" }}
+              >
+                Complete
+              </li>
+            )}
+            <li className="list-group-item text-white bg-dark">
+              {this.getDaysLeft(task.dueDate)} Days Remaining
+            </li>
+            <li className="list-group-item text-white bg-dark">
+              {task.subTaskCount} Subtasks
+            </li>
+          </ul>
+          <div className="card-body">{/*buttons go here*/}</div>
+        </div>
+      </div>
     );
+
+    // <tr key={task.taskId}>
+    //   <td>{task.priority}</td>
+    //   <td>
+    //     <Link
+    //       to={`/project/${this.state.projectId}/task/${task.taskId}`}
+    //       style={{
+    //         fontFamily: "Montserrat",
+    //         color: "#c5ffad",
+    //         fontWeight: "600",
+    //       }}
+    //     >
+    //       {task.taskName}
+    //     </Link>
+    //   </td>
+    //   <td>{task.taskDescription}</td>
+    //   <td>{task.subTaskCount} Tasks</td>
+    //   <td>{this.getDaysLeft(task.dueDate)} Days Left</td>
+    // {!task.completed && (
+    //   <td style={{ color: "#e57373", fontWeight: "600" }}>Incomplete</td>
+    // )}
+    // {task.completed && (
+    //   <td style={{ color: "#c5ffad", fontWeight: "600" }}>Complete</td>
+    // )}
+    //   <td className="d-flex justify-content-end">
+    //     <Link
+    //       to={{
+    //         pathname: `/project/${this.state.projectId}/task/${task.taskId}/edit`,
+    //         state: {
+    //           parentTaskId: task.parentTaskId,
+    //           taskId: task.taskId,
+    //           taskName: task.taskName,
+    //           taskDescription: task.taskDescription,
+    //           priority: task.priority,
+    //           completed: task.completed,
+    //           dueDate: task.dueDate,
+    //           type: "edit main",
+    //         },
+    //       }}
+    //       className="btn btn-primary btn-sm mr-2"
+    //       style={{
+    //         backgroundColor: "#c4ffbf",
+    //         border: "none",
+    //         color: "black",
+    //         fontWeight: "600",
+    //       }}
+    //     >
+    //       Edit
+    //     </Link>
+    //     <button
+    //       onClick={() => this.handleDelete(task)}
+    //       className="btn btn-danger btn-sm"
+    //       style={{
+    //         backgroundColor: "#ffbfbf",
+    //         border: "none",
+    //         color: "black",
+    //         fontWeight: "600",
+    //       }}
+    //     >
+    //       Delete
+    //     </button>
+    //     <button
+    //       onClick={() => this.getSubtasks(task)}
+    //       className="btn btn-secondary btn-sm"
+    //       style={{ marginLeft: 7, fontWeight: "600", color: "black" }}
+    //     >
+    //       Expand
+    //     </button>
+    //   </td>
+    // </tr>;
   };
 
   render() {
@@ -158,22 +211,9 @@ class Tasks extends Component {
         >
           New Task
         </Link>
-        <table
-          className="table"
-          style={{ color: "white", textDecoration: "none" }}
-        >
-          <tbody>{this.state.tasks.map((task) => this.renderRow(task))}</tbody>
-        </table>
-        {this.state.expanded && (
-          <table
-            className="table"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            <tbody>
-              {this.state.subTasks.map((subTask) => this.renderRow(subTask))}
-            </tbody>
-          </table>
-        )}
+        <div className="card-group" style={{ textDecoration: "none" }}>
+          {this.state.tasks.map((task) => this.renderCard(task))}
+        </div>
       </React.Fragment>
     );
   }
