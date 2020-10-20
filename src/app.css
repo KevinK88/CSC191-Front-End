@@ -21,6 +21,11 @@ h2 {
   cursor: pointer;
 }
 
+.clickable:hover {
+  border: solid 1px #c5ffad;
+  border-radius: 5px;
+}
+
 .icon {
   max-width: 40px;
   max-height: 40px;

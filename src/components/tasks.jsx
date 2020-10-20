@@ -35,6 +35,7 @@ class Tasks extends Component {
     }
   };
 
+<<<<<<< HEAD
   async handleDeleteSub(subTask, taskId) {
     if (window.confirm("Are you sure you want to delete this Subtask?")) {
       // var newTasks = this.state.tasks;
@@ -52,6 +53,8 @@ class Tasks extends Component {
     }
   }
 
+=======
+>>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
   async getSubTasks(task) {
     if (!task.hasOwnProperty("subTasks")) {
       await axios
@@ -318,15 +321,23 @@ class Tasks extends Component {
           textDecoration: "none",
         }}
         className="d-flex flex-row justify-content-between clickable"
+<<<<<<< HEAD
         key={subTask.taskId}
+=======
+>>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
       >
         <p className="p-2" style={{ color: "#c5ffad", fontWeight: "600" }}>
           {subTask.taskName}
         </p>
+<<<<<<< HEAD
         <p className=" p-2">{subTask.taskDescription}</p>
         <p className="ml-auto p-2">
           {this.getDaysLeft(subTask.dueDate)} Days Left
         </p>
+=======
+        <p className="mr-auto p-2">{subTask.taskDescription}</p>
+        <p className="p-2">{this.getDaysLeft(subTask.dueDate)} Days Left</p>
+>>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
         <p className="p-2">{subTask.subTaskCount} Tasks</p>
 
         {!subTask.completed && (
@@ -360,11 +371,16 @@ class Tasks extends Component {
               border: "none",
               color: "black",
               fontWeight: "600",
+<<<<<<< HEAD
+=======
+              paddingBottom: 0,
+>>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
             }}
           >
             Edit
           </Link>
         </div>
+<<<<<<< HEAD
         <div className="p-2">
           <button
             onClick={() => this.handleDeleteSub(subTask, task.taskId)}
@@ -379,6 +395,8 @@ class Tasks extends Component {
             Delete
           </button>
         </div>
+=======
+>>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
       </Link>
     ));
 
