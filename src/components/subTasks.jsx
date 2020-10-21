@@ -378,10 +378,7 @@ class SubTasks extends Component {
           textDecoration: "none",
         }}
         className="d-flex flex-row justify-content-between clickable"
-<<<<<<< HEAD
         key={subTask.taskId}
-=======
->>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
       >
         <p className="p-2" style={{ color: "#c5ffad", fontWeight: "600" }}>
           {subTask.taskName}
@@ -427,7 +424,6 @@ class SubTasks extends Component {
             Edit
           </Link>
         </div>
-<<<<<<< HEAD
         <div className="p-2">
           <button
             onClick={() => this.handleDeleteSub(subTask, task.taskId)}
@@ -442,8 +438,6 @@ class SubTasks extends Component {
             Delete
           </button>
         </div>
-=======
->>>>>>> 0b3222914cbe8445cde2813bdf9b2de6a82cfce2
       </Link>
     ));
 
