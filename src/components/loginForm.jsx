@@ -49,7 +49,8 @@ class LoginForm extends Component {
     }
     return (
       <div>
-        <h1 style={{ marginBottom: "20px" }}>Login</h1>
+        <h1 className="form-group-center">Login</h1>
+
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email" style={{ fontWeight: "600" }}>
@@ -85,18 +86,12 @@ class LoginForm extends Component {
               }}
             />
             {warning}
-            <button
-              type="submit"
-              className="btn btn-primary mt-2"
-              style={{
-                backgroundColor: "#c4ffbf",
-                border: "1px solid black",
-                color: "black",
-                fontWeight: "600",
-              }}
-            >
+
+            <button type="submit" className="btn btn-primary mt-4 border-white button-center">
               Submit
             </button>
+
+            
           </div>
         </form>
       </div>
