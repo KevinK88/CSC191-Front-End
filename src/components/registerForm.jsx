@@ -46,7 +46,6 @@ class RegisterForm extends Component {
   render() {
     return (
       <div>
-
         <h1 className="form-group-center">Sign Up</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -98,10 +97,18 @@ class RegisterForm extends Component {
                 border: "1px solid black",
               }}
             />
-            <button type="submit" className="btn btn-primary mt-4 button-center">
+            <button
+              type="submit"
+              className="btn btn-primary mt-4 button-center"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "1px solid black",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
               Submit
             </button>
-           
           </div>
         </form>
       </div>

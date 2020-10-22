@@ -87,11 +87,18 @@ class LoginForm extends Component {
             />
             {warning}
 
-            <button type="submit" className="btn btn-primary mt-4 border-white button-center">
+            <button
+              type="submit"
+              className="btn btn-primary mt-4 button-center"
+              style={{
+                backgroundColor: "#c4ffbf",
+                border: "1px solid black",
+                color: "black",
+                fontWeight: "600",
+              }}
+            >
               Submit
             </button>
-
-            
           </div>
         </form>
       </div>
