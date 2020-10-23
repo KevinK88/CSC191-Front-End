@@ -323,10 +323,8 @@ class Tasks extends Component {
         <p className="p-2" style={{ color: "#c5ffad", fontWeight: "600" }}>
           {subTask.taskName}
         </p>
-        <p className=" p-2">{subTask.taskDescription}</p>
-        <p className="ml-auto p-2">
-          {this.getDaysLeft(subTask.dueDate)} Days Left
-        </p>
+        <p className="mr-auto p-2">{subTask.taskDescription}</p>
+        <p className="p-2">{this.getDaysLeft(subTask.dueDate)} Days Left</p>
         <p className="p-2">{subTask.subTaskCount} Tasks</p>
 
         {!subTask.completed && (
@@ -360,24 +358,11 @@ class Tasks extends Component {
               border: "none",
               color: "black",
               fontWeight: "600",
+              paddingBottom: 0,
             }}
           >
             Edit
           </Link>
-        </div>
-        <div className="p-2">
-          <button
-            onClick={() => this.handleDeleteSub(subTask, task.taskId)}
-            className="btn btn-danger btn-sm"
-            style={{
-              backgroundColor: "#ffbfbf",
-              border: "none",
-              color: "black",
-              fontWeight: "600",
-            }}
-          >
-            Delete
-          </button>
         </div>
       </Link>
     ));
