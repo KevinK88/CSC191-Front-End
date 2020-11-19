@@ -1,9 +1,11 @@
 // require("chromedriver");
+
 const { Builder, By, Key, util, logging } = require("selenium-webdriver");
 // const chrome = require("selenium-webdriver/chrome");
 // const options = new chrome.Options();
 
 driver = new Builder().forBrowser("chrome").build();
+driver.manage().window().maximize();
 
 async function signup() {
   await driver.get("https://intangible-manager.herokuapp.com/signup");
@@ -20,5 +22,20 @@ async function login() {
   await driver.findElement(By.id("password")).sendKeys("123456", Key.RETURN);
 }
 
-//login();
+async function createProject() {
+  await login();
+  setTimeout(() => {
+    driver.findElement(By.linkText(`New Project`)).click();
+  }, 5000);
+
+  setTimeout(() => {
+    driver.findElement(By.id("projectName")).clear();
+    driver
+      .findElement(By.id("projectName"))
+      .sendKeys("Creat a project automated test", Key.RETURN);
+  }, 7000);
+}
+
+// createProject();
+// login();
 // signup();
