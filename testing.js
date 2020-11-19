@@ -1,5 +1,5 @@
 // require("chromedriver");
-const { Builder, By, Key, util } = require("selenium-webdriver");
+const { Builder, By, Key, util, logging } = require("selenium-webdriver");
 // const chrome = require("selenium-webdriver/chrome");
 // const options = new chrome.Options();
 
@@ -14,4 +14,11 @@ async function signup() {
     .sendKeys("123456", Key.RETURN);
 }
 
+async function login() {
+  await driver.get("https://intangible-manager.herokuapp.com/login");
+  await driver.findElement(By.id("email")).sendKeys("user@email.com");
+  await driver.findElement(By.id("password")).sendKeys("123456", Key.RETURN);
+}
+
+//login();
 // signup();
