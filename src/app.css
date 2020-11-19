@@ -20,18 +20,16 @@ h2 {
 .clickable {
   cursor: pointer;
 }
-.right{
+.right {
   margin-left: 70rem;
 }
-.form-group{
-
-  padding:0 300px 0 300px;
-}.form-group-center{
-
-
-  padding:0 0 0 500px;
+.form-group {
+  padding: 0 300px 0 300px;
 }
-.button-center{
+.form-group-center {
+  padding: 0 0 0 500px;
+}
+.button-center {
   margin: 220px;
 }
 

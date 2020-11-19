@@ -47,7 +47,7 @@ class NavBar extends Component {
         <div>
           <img src={logo} alt="Intangibles Icon" className="icon" />
         </div>
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" style={{ color: "#c5ffad" }}>
           Intangible Manager
         </Link>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
