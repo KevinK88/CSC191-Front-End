@@ -88,6 +88,23 @@ async function createSubTask() {
   }, 8000);
 }
 
+async function editProjectName() {
+  await login();
+  setTimeout(() => {
+    driver
+      .findElement(By.xpath(`/html/body/div/main/table/tbody/tr[1]/td[2]/a`))
+      .click();
+  }, 5000);
+
+  setTimeout(() => {
+    driver.findElement(By.id("projectName")).clear();
+    driver
+      .findElement(By.id("projectName"))
+      .sendKeys("Automated new Name", Key.RETURN);
+  }, 7000);
+}
+
+//editProjectName();
 // createSubTask();
 // createTask();
 // createProject();
