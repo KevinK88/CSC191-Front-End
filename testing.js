@@ -104,6 +104,39 @@ async function editProjectName() {
   }, 7000);
 }
 
+async function editTask() {
+  await login();
+  setTimeout(() => {
+    driver.findElement(By.linkText(`Create a project automated test`)).click();
+  }, 2000);
+
+  setTimeout(() => {
+    driver
+      .findElement(By.xpath("/html/body/div/main/div/div/div[2]/a"))
+      .click();
+  }, 4000);
+
+  setTimeout(() => {
+    driver.findElement(By.id("taskName")).clear();
+    driver
+      .findElement(By.id("taskName"))
+      .sendKeys("Automated task name.. edited");
+
+    driver.findElement(By.id("taskDescription")).clear();
+    driver
+      .findElement(By.id("taskDescription"))
+      .sendKeys("Automated task description... edited");
+
+    driver.findElement(By.id("priority")).clear();
+    driver.findElement(By.id("priority")).sendKeys("499");
+
+    driver.findElement(By.id("dueDate")).sendKeys("11", "22", "2021");
+    driver.findElement(By.id("completed")).sendKeys("i");
+    driver.findElement(By.id("taskName")).sendKeys(Key.RETURN);
+  }, 6000);
+}
+
+//editTask();
 //editProjectName();
 // createSubTask();
 // createTask();
