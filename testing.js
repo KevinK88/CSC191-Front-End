@@ -1,4 +1,4 @@
-// require("chromedriver");
+require("chromedriver");
 
 const { Builder, By, Key, util, logging } = require("selenium-webdriver");
 // const chrome = require("selenium-webdriver/chrome");
@@ -36,6 +36,30 @@ async function createProject() {
   }, 7000);
 }
 
+async function createTask() {
+  await login();
+  setTimeout(() => {
+    driver.findElement(By.linkText(`Create a project automated test`)).click();
+  }, 2000);
+
+  setTimeout(() => {
+    driver.findElement(By.linkText("New Task")).click();
+  }, 4000);
+
+  setTimeout(() => {
+    driver.findElement(By.id("taskName")).sendKeys("Automated task name");
+    driver
+      .findElement(By.id("taskDescription"))
+      .sendKeys("Automated task description...");
+    driver.findElement(By.id("priority")).clear();
+    driver.findElement(By.id("priority")).sendKeys("999");
+    driver.findElement(By.id("dueDate")).sendKeys("12", "30", "1999");
+    driver.findElement(By.id("completed")).sendKeys("c");
+    driver.findElement(By.id("taskName")).sendKeys(Key.RETURN);
+  }, 6000);
+}
+
+// createTask();
 // createProject();
 // login();
 // signup();
