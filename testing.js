@@ -59,6 +59,36 @@ async function createTask() {
   }, 6000);
 }
 
+async function createSubTask() {
+  await login();
+  setTimeout(() => {
+    driver.findElement(By.linkText(`Create a project automated test`)).click();
+  }, 2000);
+
+  setTimeout(() => {
+    driver.findElement(By.xpath("/html/body/div/main/div/div/a/h4")).click();
+  }, 4000);
+
+  setTimeout(() => {
+    driver.findElement(By.linkText("New Subtask")).click();
+  }, 6000);
+
+  setTimeout(() => {
+    driver.findElement(By.id("taskName")).sendKeys("automated subtask");
+
+    driver
+      .findElement(By.id("taskDescription"))
+      .sendKeys("auto sub description");
+
+    driver.findElement(By.id("priority")).sendKeys("19");
+
+    driver.findElement(By.id("dueDate")).sendKeys("05", "28", "2022");
+    // driver.findElement(By.id("completed")).sendKeys("i");
+    driver.findElement(By.id("taskName")).sendKeys(Key.RETURN);
+  }, 8000);
+}
+
+// createSubTask();
 // createTask();
 // createProject();
 // login();
